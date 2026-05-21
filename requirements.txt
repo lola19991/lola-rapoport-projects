@@ -7,3 +7,5 @@ jupyterlab
 notebook
 torch
 torchvision
+pandas
+networkx

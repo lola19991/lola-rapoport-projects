@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "online-ride-dispatch-optimizer"
+version = "0.1.0"
+description = "Online ride dispatch simulator with greedy, batch, min-cost, primal-dual, and demand-aware matching policies."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Lola Rapoport" }]
+dependencies = [
+  "matplotlib>=3.8",
+  "networkx>=3.2",
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "scipy>=1.11",
+]
+
+[project.scripts]
+ride-dispatch = "ride_dispatch_optimizer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
