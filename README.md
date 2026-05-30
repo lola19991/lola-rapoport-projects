@@ -1,6 +1,6 @@
 # Lola Rapoport — Project Portfolio
 
-This repository collects selected software-engineering, cloud, algorithmic, optimization, and machine-learning projects. It is organized as a portfolio repository for job applications, with runnable code where available and PDF reports for theory-heavy projects.
+This repository collects selected software-engineering, cloud, algorithmic, optimization, and machine-learning projects. It is organized as a portfolio repository, with runnable code where available and PDF reports for theory-heavy projects.
 
 ## Highlights
 
