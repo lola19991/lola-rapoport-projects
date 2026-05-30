@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: cloud-policy-guard
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /docs

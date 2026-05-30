@@ -1,0 +1,29 @@
+securityGroups:
+  - name: production-web
+    environment: production
+    tags:
+      Environment: production
+      owner: platform
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: Public HTTPS
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 10.20.0.0/16
+        description: Private service mesh egress
+
+  - name: production-db-private
+    environment: production
+    tags:
+      Environment: production
+      team: data-platform
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 10.20.0.0/16
+        description: App subnet only

@@ -1,0 +1,33 @@
+securityGroups:
+  - name: production-db
+    environment: production
+    tags:
+      Environment: production
+      team: payments
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 0.0.0.0/0
+        description: PostgreSQL should never be public
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+        description: Emergency admin access
+      - direction: egress
+        protocol: -1
+        cidr: 0.0.0.0/0
+        description: Allow all outbound
+
+  - name: orphaned-admin
+    environment: staging
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 3389
+        cidr: ::/0
+      - direction: inbound
+        protocol: tcp
+        port: 3389
+        cidr: ::/0

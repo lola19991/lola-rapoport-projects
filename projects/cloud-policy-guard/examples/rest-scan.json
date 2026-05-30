@@ -1,0 +1,21 @@
+{
+  "source": "api-demo",
+  "environment": "production",
+  "securityGroups": [
+    {
+      "name": "api-production-db",
+      "tags": {
+        "team": "payments",
+        "Environment": "production"
+      },
+      "rules": [
+        {
+          "direction": "inbound",
+          "protocol": "tcp",
+          "port": 5432,
+          "cidr": "0.0.0.0/0"
+        }
+      ]
+    }
+  ]
+}
