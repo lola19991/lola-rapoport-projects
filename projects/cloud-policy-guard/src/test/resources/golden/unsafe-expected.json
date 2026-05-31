@@ -1,0 +1,168 @@
+[
+  {
+    "severity": "CRITICAL",
+    "rule": "ENVIRONMENT_POLICY_VIOLATION",
+    "resource": "production-data",
+    "ruleIndex": 0,
+    "message": "Production security group exposes 5432 to the internet.",
+    "recommendation": "For production, expose only approved public entry points and keep service/database/admin ports private.",
+    "details": {
+      "approvedPublicPorts": [
+        80,
+        443
+      ],
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "environment": "production",
+      "ports": "5432"
+    }
+  },
+  {
+    "severity": "CRITICAL",
+    "rule": "ENVIRONMENT_POLICY_VIOLATION",
+    "resource": "production-data",
+    "ruleIndex": 1,
+    "message": "Production security group exposes 5432 to the internet.",
+    "recommendation": "For production, expose only approved public entry points and keep service/database/admin ports private.",
+    "details": {
+      "approvedPublicPorts": [
+        80,
+        443
+      ],
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "environment": "production",
+      "ports": "5432"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "PUBLIC_DATABASE_PORT",
+    "resource": "production-data",
+    "ruleIndex": 0,
+    "message": "PostgreSQL port 5432 is open to the internet.",
+    "recommendation": "Expose databases only on private networks and allow access from application security groups.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "port": 5432,
+      "ports": "5432",
+      "service": "PostgreSQL"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "PUBLIC_DATABASE_PORT",
+    "resource": "production-data",
+    "ruleIndex": 1,
+    "message": "PostgreSQL port 5432 is open to the internet.",
+    "recommendation": "Expose databases only on private networks and allow access from application security groups.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "port": 5432,
+      "ports": "5432",
+      "service": "PostgreSQL"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "OVERLY_BROAD_INGRESS",
+    "resource": "public-admin",
+    "ruleIndex": 2,
+    "message": "Inbound access is open to the internet across all ports.",
+    "recommendation": "Restrict inbound access to required protocols, ports, and trusted source CIDRs.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "exposure": "internet-ingress",
+      "ports": "0-65535"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "PUBLIC_RDP",
+    "resource": "public-admin",
+    "ruleIndex": 1,
+    "message": "RDP port 3389 is open to the internet.",
+    "recommendation": "Restrict RDP to a VPN, privileged access gateway, or trusted administrator CIDR.",
+    "details": {
+      "cidr": "::/0",
+      "direction": "INBOUND",
+      "port": 3389,
+      "ports": "3389"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "PUBLIC_SSH",
+    "resource": "public-admin",
+    "ruleIndex": 0,
+    "message": "SSH port 22 is open to the internet.",
+    "recommendation": "Restrict SSH to a VPN, bastion host, or trusted administrator CIDR.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "port": 22,
+      "ports": "22"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "WIDE_OPEN_ADMIN_PORT",
+    "resource": "public-admin",
+    "ruleIndex": 0,
+    "message": "SSH administration port 22 is open to the internet.",
+    "recommendation": "Restrict administrative access to a VPN, privileged access gateway, or private bastion path.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "port": 22,
+      "ports": "22",
+      "service": "SSH"
+    }
+  },
+  {
+    "severity": "HIGH",
+    "rule": "WIDE_OPEN_ADMIN_PORT",
+    "resource": "public-admin",
+    "ruleIndex": 1,
+    "message": "RDP administration port 3389 is open to the internet.",
+    "recommendation": "Restrict administrative access to a VPN, privileged access gateway, or private bastion path.",
+    "details": {
+      "cidr": "::/0",
+      "direction": "INBOUND",
+      "port": 3389,
+      "ports": "3389",
+      "service": "RDP"
+    }
+  },
+  {
+    "severity": "MEDIUM",
+    "rule": "OVERLY_BROAD_EGRESS",
+    "resource": "public-egress",
+    "ruleIndex": 0,
+    "message": "Outbound access is open to the internet across all ports.",
+    "recommendation": "Restrict outbound access to required protocols, ports, and trusted destination CIDRs.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "EGRESS",
+      "exposure": "internet-egress",
+      "ports": "all ports"
+    }
+  },
+  {
+    "severity": "LOW",
+    "rule": "DUPLICATE_RULE",
+    "resource": "production-data",
+    "ruleIndex": 1,
+    "message": "Rule duplicates rule index 0.",
+    "recommendation": "Remove duplicate rules to reduce policy noise and make reviews easier.",
+    "details": {
+      "cidr": "0.0.0.0/0",
+      "direction": "INBOUND",
+      "firstRuleIndex": 0,
+      "ports": "5432"
+    }
+  }
+]

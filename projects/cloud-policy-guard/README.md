@@ -107,10 +107,6 @@ The REST service stores scans in memory for simple orchestration demos.
 - `GET /scans/{id}` returns the full scan result
 - `GET /scans/{id}/violations` returns only violations
 
-## Portfolio Repository Note
-
-This project lives inside a portfolio monorepo at `projects/cloud-policy-guard`. The GitHub Actions workflow for this project is stored at `../../.github/workflows/cloud-policy-guard.yml` and uses `projects/cloud-policy-guard` as its working directory.
-
 ## GitHub Actions
 
 The included workflow:

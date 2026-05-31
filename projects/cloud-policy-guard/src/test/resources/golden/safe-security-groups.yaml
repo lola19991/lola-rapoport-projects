@@ -1,0 +1,33 @@
+securityGroups:
+  - name: production-web
+    environment: production
+    tags:
+      owner: platform
+      Environment: production
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: Approved public HTTPS
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 10.0.0.0/8
+        description: SSH restricted to internal network
+
+  - name: internal-database
+    environment: production
+    tags:
+      team: data-platform
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 10.20.0.0/16
+        description: PostgreSQL restricted to application subnet
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 10.30.0.0/16
+        description: HTTPS to private services

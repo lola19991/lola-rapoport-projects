@@ -1,0 +1,57 @@
+{
+  "format_version": "1.2",
+  "resource_changes": [
+    {
+      "address": "aws_security_group.production_db",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "production_db",
+      "change": {
+        "after": {
+          "id": "sg-production-db",
+          "name": "production-db",
+          "tags": {
+            "Environment": "production",
+            "team": "payments"
+          },
+          "ingress": [
+            {
+              "description": "PostgreSQL from anywhere",
+              "from_port": 5432,
+              "to_port": 5432,
+              "protocol": "tcp",
+              "cidr_blocks": ["0.0.0.0/0"],
+              "ipv6_cidr_blocks": []
+            }
+          ],
+          "egress": [
+            {
+              "description": "All outbound",
+              "from_port": 0,
+              "to_port": 0,
+              "protocol": "-1",
+              "cidr_blocks": ["0.0.0.0/0"],
+              "ipv6_cidr_blocks": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_vpc_security_group_ingress_rule.admin",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "admin",
+      "change": {
+        "after": {
+          "security_group_id": "sg-production-db",
+          "cidr_ipv4": "0.0.0.0/0",
+          "from_port": 22,
+          "to_port": 22,
+          "ip_protocol": "tcp",
+          "description": "SSH from anywhere"
+        }
+      }
+    }
+  ]
+}

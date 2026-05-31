@@ -46,7 +46,7 @@ public class ScanController {
     public ScanResult upload(@RequestBody UploadRequest request) {
         try {
             SecurityGroupYamlParser parser = new SecurityGroupYamlParser();
-            List<SecurityGroup> securityGroups = parser.parse(request.content());
+            List<SecurityGroup> securityGroups = parser.parse(request.content(), request.filename());
             
             ScanResult result = scanner.scan(
                     securityGroups,

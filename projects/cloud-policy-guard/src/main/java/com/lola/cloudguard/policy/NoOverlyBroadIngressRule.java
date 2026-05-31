@@ -9,26 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class NoOverlyBroadEgressRule implements PolicyRule {
+public class NoOverlyBroadIngressRule implements PolicyRule {
 
     @Override
     public String id() {
-        return "OVERLY_BROAD_EGRESS";
+        return "OVERLY_BROAD_INGRESS";
     }
 
     @Override
     public String title() {
-        return "No overly broad egress";
+        return "No overly broad ingress";
     }
 
     @Override
     public Severity defaultSeverity() {
-        return Severity.MEDIUM;
+        return Severity.HIGH;
     }
 
     @Override
     public String recommendation() {
-        return "Restrict outbound access to required protocols, ports, and trusted destination CIDRs.";
+        return "Restrict inbound access to required protocols, ports, and trusted source CIDRs.";
     }
 
     @Override
@@ -38,15 +38,15 @@ public class NoOverlyBroadEgressRule implements PolicyRule {
             SecurityRule rule = group.rules().get(i);
             boolean allPorts = rule.isAllTraffic()
                     || (rule.fromPort() != null && rule.toPort() != null && rule.fromPort() <= 0 && rule.toPort() >= 65535);
-            if (rule.isEgress() && rule.isPublic() && allPorts) {
+            if (rule.isInbound() && rule.isPublic() && allPorts) {
                 violations.add(RuleSupport.violation(
                         this,
                         defaultSeverity(),
                         group,
                         i,
-                        "Outbound access is open to the internet across all ports.",
+                        "Inbound access is open to the internet across all ports.",
                         rule,
-                        Map.of("exposure", "internet-egress")
+                        Map.of("exposure", "internet-ingress")
                 ));
             }
         }

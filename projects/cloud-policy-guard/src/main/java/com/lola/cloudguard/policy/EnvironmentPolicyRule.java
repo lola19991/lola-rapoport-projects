@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 public class EnvironmentPolicyRule implements PolicyRule {
-    private static final Set<Integer> APPROVED_PUBLIC_PRODUCTION_PORTS = Set.of(80, 443);
+    private static final List<Integer> APPROVED_PUBLIC_PRODUCTION_PORTS = List.of(80, 443);
 
     @Override
     public String id() {

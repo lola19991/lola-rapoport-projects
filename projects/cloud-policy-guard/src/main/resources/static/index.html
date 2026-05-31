@@ -437,11 +437,12 @@
                     <div class="violation-item ${v.severity.toLowerCase()}">
                         <div class="violation-title">${v.severity} - ${v.rule}</div>
                         <div class="violation-details">
-                            <strong>Group:</strong> ${v.securityGroupId || 'N/A'}<br>
-                            <strong>Description:</strong> ${v.description || 'N/A'}<br>
-                            ${v.sourceIp ? `<strong>Source IP:</strong> ${v.sourceIp}<br>` : ''}
-                            ${v.port ? `<strong>Port:</strong> ${v.port}<br>` : ''}
-                            ${v.protocol ? `<strong>Protocol:</strong> ${v.protocol}<br>` : ''}
+                            <strong>Group:</strong> ${v.resource || 'N/A'}<br>
+                            <strong>Message:</strong> ${v.message || 'N/A'}<br>
+                            ${v.details?.cidr ? `<strong>CIDR:</strong> ${v.details.cidr}<br>` : ''}
+                            ${v.details?.ports ? `<strong>Ports:</strong> ${v.details.ports}<br>` : ''}
+                            ${v.details?.direction ? `<strong>Direction:</strong> ${v.details.direction}<br>` : ''}
+                            ${v.recommendation ? `<strong>Recommendation:</strong> ${v.recommendation}<br>` : ''}
                         </div>
                     </div>
                 `).join('');

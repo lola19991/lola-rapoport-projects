@@ -1,0 +1,48 @@
+securityGroups:
+  - name: public-admin
+    environment: staging
+    tags:
+      owner: platform
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+        description: SSH exposed over IPv4
+      - direction: inbound
+        protocol: tcp
+        port: 3389
+        ipv6Cidr: ::/0
+        description: RDP exposed over IPv6
+      - direction: inbound
+        protocol: udp
+        fromPort: 0
+        toPort: 65535
+        cidr: 0.0.0.0/0
+        description: Broad public UDP ingress
+
+  - name: production-data
+    environment: production
+    tags:
+      team: data-platform
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 0.0.0.0/0
+        description: Public PostgreSQL
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 0.0.0.0/0
+        description: Duplicate public PostgreSQL
+
+  - name: public-egress
+    environment: development
+    tags:
+      owner: platform
+    rules:
+      - direction: egress
+        protocol: -1
+        cidr: 0.0.0.0/0
+        description: Allow all outbound

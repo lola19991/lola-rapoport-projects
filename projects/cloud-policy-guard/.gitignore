@@ -1,22 +1,15 @@
 target/
-out/
-build/
-
 .idea/
 .vscode/
 *.iml
-
 .DS_Store
 .env
-.env.*
-!.env.example
 *.log
-
 policy-guard.sarif
-*.sarif
-terraform.tfstate
-terraform.tfstate.*
+terraform.tfstate*
 .terraform/
 .terraform.lock.hcl
-
 .codex-tools/
+
+# Local scratch files
+/terraform-plan.json

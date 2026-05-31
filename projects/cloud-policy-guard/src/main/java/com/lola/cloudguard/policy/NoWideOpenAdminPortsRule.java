@@ -38,7 +38,7 @@ public class NoWideOpenAdminPortsRule implements PolicyRule {
 
     @Override
     public String recommendation() {
-        return "Move administrative access behind identity-aware access, VPN, or a private bastion path.";
+        return "Restrict administrative access to a VPN, privileged access gateway, or private bastion path.";
     }
 
     @Override

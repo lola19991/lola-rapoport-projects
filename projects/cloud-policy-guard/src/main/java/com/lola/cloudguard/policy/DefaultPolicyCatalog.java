@@ -12,6 +12,7 @@ public final class DefaultPolicyCatalog {
                 new NoPublicRdpRule(),
                 new NoPublicDatabaseRule(),
                 new NoWideOpenAdminPortsRule(),
+                new NoOverlyBroadIngressRule(),
                 new NoOverlyBroadEgressRule(),
                 new RequireOwnerTagRule(),
                 new NoDuplicateRule(),
