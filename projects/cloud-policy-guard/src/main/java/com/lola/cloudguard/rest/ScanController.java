@@ -53,10 +53,19 @@ public class ScanController {
                     new ScanContext(request.source() == null ? "web-upload" : request.source(), null)
             );
             return scanStore.save(result);
-        } catch (IOException e) {
+        } catch (Exception e) {
+            String errorMessage = e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName();
+            String friendlyMessage = "Failed to parse " + (request.filename() != null ? request.filename() : "content");
+            if (errorMessage.contains("yaml") || errorMessage.contains("YAML")) {
+                friendlyMessage = "Invalid YAML syntax: " + errorMessage;
+            } else if (errorMessage.contains("JSON") || errorMessage.contains("json")) {
+                friendlyMessage = "Invalid JSON syntax: " + errorMessage;
+            } else {
+                friendlyMessage = friendlyMessage + ": " + errorMessage;
+            }
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "Failed to parse file: " + e.getMessage()
+                    friendlyMessage
             );
         }
     }

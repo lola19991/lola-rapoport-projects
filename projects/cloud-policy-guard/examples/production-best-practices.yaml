@@ -1,0 +1,107 @@
+securityGroups:
+  - name: public-api-prod
+    environment: production
+    tags:
+      Environment: production
+      team: platform
+      owner: devops@company.com
+      service-owner: api-team@company.com
+    rules:
+      # Public entry points only
+      - direction: inbound
+        protocol: tcp
+        port: 80
+        cidr: 0.0.0.0/0
+        description: HTTP entry point (redirects to HTTPS)
+
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS entry point (only secure channel)
+
+      # Controlled outbound access
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS to external services
+
+      - direction: egress
+        protocol: tcp
+        port: 3306
+        cidr: 10.0.0.0/8
+        description: MySQL to internal database cluster
+
+      - direction: egress
+        protocol: tcp
+        port: 5432
+        cidr: 10.1.0.0/16
+        description: PostgreSQL to analytics database
+
+      - direction: egress
+        protocol: udp
+        port: 53
+        cidr: 10.2.0.2/32
+        description: DNS to internal resolver
+
+  - name: database-cluster-prod
+    environment: production
+    tags:
+      Environment: production
+      team: data-platform
+      owner: db-admin@company.com
+      service-owner: database-team@company.com
+    rules:
+      # Restricted database access from application layer only
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 10.0.0.0/16
+        description: PostgreSQL from application VPC
+
+      - direction: inbound
+        protocol: tcp
+        port: 3306
+        cidr: 10.0.1.0/24
+        description: MySQL from primary app tier
+
+      # Controlled backups and replication
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS for backup to S3
+
+      - direction: egress
+        protocol: tcp
+        port: 5432
+        cidr: 10.0.2.0/24
+        description: PostgreSQL replication to replica
+
+  - name: bastion-host-prod
+    environment: production
+    tags:
+      Environment: production
+      team: infrastructure
+      owner: security@company.com
+    rules:
+      # SSH only from specific corporate networks
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 203.0.113.0/24
+        description: SSH from corporate network
+
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 198.51.100.0/24
+        description: SSH from VPN concentrator
+
+      # Controlled outbound for operational tasks
+      - direction: egress
+        protocol: tcp
+        port: 22
+        cidr: 10.0.0.0/8
+        description: SSH to internal servers

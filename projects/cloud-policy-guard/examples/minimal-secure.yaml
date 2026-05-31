@@ -1,0 +1,28 @@
+securityGroups:
+  - name: web-frontend
+    environment: production
+    tags:
+      Environment: production
+      team: platform
+      owner: alice@company.com
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 80
+        cidr: 0.0.0.0/0
+        description: HTTP from internet
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS from internet
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS to external APIs
+      - direction: egress
+        protocol: tcp
+        port: 3306
+        cidr: 10.0.0.0/8
+        description: MySQL to internal database

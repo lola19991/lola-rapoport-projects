@@ -1,0 +1,39 @@
+securityGroups:
+  - name: edge-case-empty
+    environment: dev
+    tags:
+      Environment: dev
+    rules: []
+
+  - name: edge-case-single-rule
+    environment: staging
+    tags:
+      Environment: staging
+      team: qa
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+
+  - name: edge-case-full-port-range
+    environment: production
+    tags:
+      Environment: production
+      owner: admin
+    rules:
+      - direction: inbound
+        protocol: tcp
+        fromPort: 0
+        toPort: 65535
+        cidr: 0.0.0.0/0
+        description: All ports exposed (extreme case)
+
+  - name: edge-case-all-traffic-ipv6
+    tags:
+      owner: test
+    rules:
+      - direction: egress
+        protocol: -1
+        cidr: ::/0
+        description: All traffic egress to IPv6

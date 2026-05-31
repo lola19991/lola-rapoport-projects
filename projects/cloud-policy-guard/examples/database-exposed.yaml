@@ -1,0 +1,73 @@
+securityGroups:
+  - name: postgres-exposed
+    tags:
+      owner: db-team
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 0.0.0.0/0
+        description: PostgreSQL exposed to internet
+
+  - name: mysql-exposed
+    tags:
+      team: databases
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 3306
+        cidr: 0.0.0.0/0
+        description: MySQL exposed to internet
+
+  - name: mongodb-exposed
+    tags:
+      owner: mongo-admin
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 27017
+        cidr: 0.0.0.0/0
+        description: MongoDB exposed to internet
+
+  - name: redis-exposed
+    tags:
+      team: cache
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 6379
+        cidr: 0.0.0.0/0
+        description: Redis exposed to internet
+
+  - name: elasticsearch-exposed
+    tags:
+      owner: search
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 9200
+        cidr: 0.0.0.0/0
+        description: Elasticsearch exposed to internet
+
+  - name: databases-restricted-secure
+    tags:
+      owner: security
+      team: infra
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 10.0.0.0/16
+        description: PostgreSQL from VPC only
+
+      - direction: inbound
+        protocol: tcp
+        port: 3306
+        cidr: 10.1.0.0/16
+        description: MySQL from VPC only
+
+      - direction: inbound
+        protocol: tcp
+        port: 27017
+        cidr: 10.2.0.0/16
+        description: MongoDB from VPC only

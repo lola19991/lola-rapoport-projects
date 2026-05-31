@@ -1,0 +1,61 @@
+securityGroups:
+  - name: api-gateway
+    environment: production
+    tags:
+      Environment: production
+      team: api-platform
+      owner: charlie@company.com
+    rules:
+      # ✓ COMPLIANT: Public HTTP/HTTPS only
+      - direction: inbound
+        protocol: tcp
+        port: 80
+        cidr: 0.0.0.0/0
+        description: HTTP traffic
+
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS traffic
+
+      # ✓ COMPLIANT: Internal database access
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 10.0.0.0/16
+        description: PostgreSQL from VPC
+
+      # ✗ VIOLATION: SSH exposed to internet
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+        description: SSH emergency access (should be restricted)
+
+  - name: cache-layer
+    environment: staging
+    tags:
+      Environment: staging
+      team: infra
+    rules:
+      # ✓ COMPLIANT: Redis limited to VPC
+      - direction: inbound
+        protocol: tcp
+        port: 6379
+        cidr: 10.1.0.0/16
+        description: Redis cache
+
+      # ✗ VIOLATION: Admin port exposed
+      - direction: inbound
+        protocol: tcp
+        port: 6380
+        cidr: 0.0.0.0/0
+        description: Redis admin (should not be public)
+
+      # ✗ VIOLATION: Duplicate rule
+      - direction: inbound
+        protocol: tcp
+        port: 6379
+        cidr: 10.1.0.0/16
+        description: Duplicate of first rule

@@ -1,0 +1,77 @@
+securityGroups:
+  - name: all-violations-combo
+    tags: {}
+    rules:
+      # PUBLIC_SSH_VIOLATION
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+        description: SSH exposed
+
+      # PUBLIC_RDP_VIOLATION
+      - direction: inbound
+        protocol: tcp
+        port: 3389
+        cidr: 0.0.0.0/0
+        description: RDP exposed
+
+      # PUBLIC_DATABASE_PORT_VIOLATION
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        cidr: 0.0.0.0/0
+        description: PostgreSQL exposed
+
+      - direction: inbound
+        protocol: tcp
+        port: 3306
+        cidr: 0.0.0.0/0
+        description: MySQL exposed
+
+      - direction: inbound
+        protocol: tcp
+        port: 27017
+        cidr: 0.0.0.0/0
+        description: MongoDB exposed
+
+      # PUBLIC_ADMIN_PORT_VIOLATION
+      - direction: inbound
+        protocol: tcp
+        port: 5985
+        cidr: 0.0.0.0/0
+        description: WinRM exposed
+
+      - direction: inbound
+        protocol: tcp
+        port: 5986
+        cidr: 0.0.0.0/0
+        description: WinRM SSL exposed
+
+      # OVERLY_BROAD_INGRESS_VIOLATION
+      - direction: inbound
+        protocol: -1
+        cidr: 0.0.0.0/0
+        description: All traffic ingress
+
+      # OVERLY_BROAD_EGRESS_VIOLATION
+      - direction: egress
+        protocol: -1
+        cidr: 0.0.0.0/0
+        description: All traffic egress
+
+      # DUPLICATE_RULE_VIOLATION
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+        description: SSH exposed (duplicate)
+
+      # PUBLIC_IPV6_RDP
+      - direction: inbound
+        protocol: tcp
+        port: 3389
+        ipv6Cidr: ::/0
+        description: RDP exposed on IPv6
+
+      # MISSING_TAG_VIOLATION (no owner/team/service-owner)

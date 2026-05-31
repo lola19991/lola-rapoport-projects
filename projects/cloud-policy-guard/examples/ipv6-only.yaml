@@ -1,0 +1,32 @@
+securityGroups:
+  - name: ipv6-services
+    environment: production
+    tags:
+      Environment: production
+      team: infrastructure
+      owner: bob@company.com
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        ipv6Cidr: ::/0
+        description: HTTPS from anywhere on IPv6
+
+      - direction: inbound
+        protocol: tcp
+        port: 3389
+        ipv6Cidr: ::/0
+        description: RDP exposed on IPv6 (VIOLATION)
+
+      - direction: inbound
+        protocol: tcp
+        port: 5432
+        ipv6Cidr: 2001:db8::/32
+        description: PostgreSQL from trusted IPv6 CIDR
+
+      - direction: egress
+        protocol: tcp
+        fromPort: 80
+        toPort: 443
+        ipv6Cidr: ::/0
+        description: Web access on IPv6
