@@ -1,0 +1,84 @@
+securityGroups:
+  - name: dev-testing
+    environment: dev
+    tags:
+      Environment: dev
+      team: engineering
+      owner: dev@company.com
+    rules:
+      # More permissive in dev for testing
+      - direction: inbound
+        protocol: tcp
+        port: 8080
+        cidr: 0.0.0.0/0
+        description: Dev app server (more open for testing)
+
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 0.0.0.0/0
+        description: SSH for debugging
+
+      - direction: egress
+        protocol: -1
+        cidr: 0.0.0.0/0
+        description: Unrestricted for development
+
+  - name: staging-validation
+    environment: staging
+    tags:
+      Environment: staging
+      team: qa
+      owner: qa@company.com
+    rules:
+      # More restrictive than dev, but not production-locked
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 10.0.0.0/8
+        description: HTTPS from internal VPC
+
+      - direction: inbound
+        protocol: tcp
+        port: 22
+        cidr: 203.0.113.100/32
+        description: SSH from admin workstation
+
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS outbound
+
+      - direction: egress
+        protocol: tcp
+        port: 3306
+        cidr: 10.1.0.0/16
+        description: Staging database
+
+  - name: prod-api
+    environment: production
+    tags:
+      Environment: production
+      team: platform
+      owner: devops@company.com
+      service-owner: platform-team@company.com
+    rules:
+      # Strict production controls
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS only
+
+      - direction: egress
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS to external services
+
+      - direction: egress
+        protocol: tcp
+        port: 5432
+        cidr: 10.2.0.0/16
+        description: Production database

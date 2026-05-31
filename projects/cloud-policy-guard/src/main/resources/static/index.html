@@ -25,13 +25,139 @@
             padding: 20px;
         }
 
+        .main-wrapper {
+            display: flex;
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+            align-items: flex-start;
+        }
+
         .container {
             background: white;
             border-radius: 10px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            width: 100%;
+            flex: 1;
+            min-width: 500px;
             padding: 40px;
+        }
+
+        .history-sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 280px;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .history-header {
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-header h3 {
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .clear-history-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 12px;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        .clear-history-btn:hover {
+            color: #666;
+        }
+
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .history-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .history-item:hover {
+            background-color: #f8f9fa;
+            border-left-color: #667eea;
+        }
+
+        .history-item.active {
+            background-color: #f0f2ff;
+            border-left-color: #667eea;
+        }
+
+        .history-item-filename {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+
+        .history-item-time {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .history-item-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+        }
+
+        .history-item-count {
+            background-color: #667eea;
+            color: white;
+            border-radius: 10px;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .history-empty {
+            padding: 40px 15px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .history-sidebar {
+                width: 100%;
+                max-height: 200px;
+            }
+
+            .container {
+                min-width: auto;
+            }
         }
 
         h1 {
@@ -47,8 +173,110 @@
             font-size: 14px;
         }
 
+        .mode-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            background-color: #e0e0e0;
+            color: #333;
+            border: 2px solid #999;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn.active {
+            background-color: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
         .upload-section {
             margin-bottom: 30px;
+        }
+
+        .paste-section {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .paste-section.active {
+            display: block;
+        }
+
+        .textarea-container {
+            position: relative;
+        }
+
+        .paste-textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .paste-textarea:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .paste-textarea::placeholder {
+            color: #999;
+        }
+
+        .paste-hint {
+            color: #999;
+            font-size: 12px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+        }
+
+        .scan-btn {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .scan-btn:hover {
+            background-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .scan-btn:active {
+            transform: translateY(0);
+        }
+
+        .scan-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .upload-box {
@@ -283,13 +511,19 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="main-wrapper">
+        <div class="container">
         <h1>🛡️ Cloud Policy Guard</h1>
         <p class="subtitle">Upload a security group file (YAML or JSON) to scan for policy violations</p>
 
+        <div class="mode-toggle">
+            <button class="mode-btn active" id="uploadModeBtn" onclick="switchMode('upload')">📤 Upload / Drag & Drop</button>
+            <button class="mode-btn" id="pasteModeBtn" onclick="switchMode('paste')">📝 Paste Text</button>
+        </div>
+
         <div class="error-alert" id="errorAlert"></div>
 
-        <div class="upload-section">
+        <div class="upload-section" id="uploadSection">
             <div class="upload-box" id="uploadBox">
                 <div class="upload-icon">📄</div>
                 <div class="upload-text">Drag and drop your file here</div>
@@ -298,6 +532,14 @@
                 <input type="file" id="fileInput" class="file-input" accept=".yaml,.yml,.json">
                 <div class="file-name" id="fileName"></div>
             </div>
+        </div>
+
+        <div class="paste-section" id="pasteSection">
+            <div class="textarea-container">
+                <textarea class="paste-textarea" id="pasteTextarea" placeholder="Paste your YAML or JSON security group configuration here..."></textarea>
+                <div class="paste-hint">💡 Paste YAML or JSON content and click 'Scan' to check for policy violations</div>
+            </div>
+            <button class="scan-btn" onclick="scanPastedText()">🔍 Scan Policy</button>
         </div>
 
         <div class="loading" id="loading">
@@ -317,6 +559,17 @@
             <div id="violationContainer"></div>
             <div class="scan-id" id="scanId"></div>
         </div>
+        </div>
+
+        <div class="history-sidebar">
+            <div class="history-header">
+                <h3>📋 Scan History</h3>
+                <button class="clear-history-btn" onclick="clearScanHistory()">Clear</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="history-empty">No scans yet</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -326,6 +579,29 @@
         const loading = document.getElementById('loading');
         const results = document.getElementById('results');
         const errorAlert = document.getElementById('errorAlert');
+        const uploadSection = document.getElementById('uploadSection');
+        const pasteSection = document.getElementById('pasteSection');
+        const pasteTextarea = document.getElementById('pasteTextarea');
+        const uploadModeBtn = document.getElementById('uploadModeBtn');
+        const pasteModeBtn = document.getElementById('pasteModeBtn');
+
+        // Mode switching
+        function switchMode(mode) {
+            if (mode === 'upload') {
+                uploadSection.style.display = 'block';
+                pasteSection.classList.remove('active');
+                uploadModeBtn.classList.add('active');
+                pasteModeBtn.classList.remove('active');
+            } else {
+                uploadSection.style.display = 'none';
+                pasteSection.classList.add('active');
+                uploadModeBtn.classList.remove('active');
+                pasteModeBtn.classList.add('active');
+                pasteTextarea.focus();
+            }
+            hideError();
+            closeResults();
+        }
 
         // Handle file selection
         fileInput.addEventListener('change', (e) => {
@@ -389,7 +665,8 @@
 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.message || `Upload failed: ${response.statusText}`);
+                    const errorMessage = errorData.message || errorData.detail || `Error: ${response.statusText}`;
+                    throw new Error(errorMessage);
                 }
 
                 const result = await response.json();
@@ -401,7 +678,47 @@
             }
         }
 
-        function displayResults(result) {
+        async function scanPastedText() {
+            const content = pasteTextarea.value.trim();
+
+            if (!content) {
+                showError('Please paste some YAML or JSON content first.');
+                return;
+            }
+
+            hideError();
+            loading.style.display = 'block';
+            results.classList.remove('show');
+
+            try {
+                const response = await fetch('/scans/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        filename: 'pasted-content',
+                        source: 'web-paste'
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMessage = errorData.message || errorData.detail || `Error: ${response.statusText}`;
+                    throw new Error(errorMessage);
+                }
+
+                const result = await response.json();
+                displayResults(result);
+            } catch (error) {
+                showError(error.message || 'An error occurred while scanning the content.');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayResults(result, saveToHistory = true) {
             const violations = result.violations || [];
             const critical = violations.filter(v => v.severity === 'CRITICAL').length;
             const high = violations.filter(v => v.severity === 'HIGH').length;
@@ -449,13 +766,112 @@
             }
 
             results.classList.add('show');
+            if (saveToHistory) {
+                saveScanToHistory(result);
+            }
+        }
+
+        function saveScanToHistory(result) {
+            const history = JSON.parse(localStorage.getItem('scanHistory')) || [];
+            const filename = fileName.textContent || pasteTextarea.value.split('\n')[0].substring(0, 30);
+            const violations = result.violations || [];
+            
+            const scanEntry = {
+                id: result.id,
+                filename: filename.replace(/^✓ /, ''),
+                timestamp: new Date().toISOString(),
+                violationCount: violations.length,
+                result: result
+            };
+            
+            history.unshift(scanEntry);
+            if (history.length > 50) {
+                history.pop();
+            }
+            localStorage.setItem('scanHistory', JSON.stringify(history));
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() {
+            const history = JSON.parse(localStorage.getItem('scanHistory')) || [];
+            const historyList = document.getElementById('historyList');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<div class="history-empty">No scans yet</div>';
+                return;
+            }
+            
+            historyList.innerHTML = history.map((entry, index) => `
+                <div class="history-item" onclick="loadScanFromHistory(${index})">
+                    <div class="history-item-filename" title="${entry.filename}">${entry.filename}</div>
+                    <div class="history-item-time">${formatTime(entry.timestamp)}</div>
+                    <div class="history-item-status">
+                        <span>${entry.violationCount > 0 ? '⚠️' : '✓'}</span>
+                        <span class="history-item-count">${entry.violationCount}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return `${minutes}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+            if (days < 7) return `${days}d ago`;
+            
+            return date.toLocaleDateString();
+        }
+
+        async function loadScanFromHistory(index) {
+            const history = JSON.parse(localStorage.getItem('scanHistory')) || [];
+            if (index < 0 || index >= history.length) return;
+            
+            const entry = history[index];
+            
+            try {
+                const response = await fetch(`/scans/${entry.id}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch scan: ${response.statusText}`);
+                }
+                const result = await response.json();
+                displayResults(result, false);
+            } catch (error) {
+                showError(error.message || 'Failed to load scan from history');
+            }
+            
+            const historyItems = document.querySelectorAll('.history-item');
+            historyItems.forEach((item, i) => {
+                i === index ? item.classList.add('active') : item.classList.remove('active');
+            });
+        }
+
+        function clearScanHistory() {
+            if (confirm('Are you sure you want to clear all scan history?')) {
+                localStorage.removeItem('scanHistory');
+                updateHistoryDisplay();
+                closeResults();
+            }
         }
 
         function closeResults() {
             results.classList.remove('show');
             fileName.textContent = '';
             fileInput.value = '';
+            pasteTextarea.value = '';
         }
+
+        // Initialize history display on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateHistoryDisplay();
+        });
 
         function showError(message) {
             errorAlert.textContent = message;

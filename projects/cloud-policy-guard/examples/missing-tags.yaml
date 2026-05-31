@@ -1,0 +1,57 @@
+securityGroups:
+  - name: no-tags-at-all
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS
+
+  - name: missing-owner
+    tags:
+      Environment: production
+      team: platform
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 80
+        cidr: 0.0.0.0/0
+        description: HTTP
+
+  - name: missing-team
+    tags:
+      Environment: production
+      owner: alice@company.com
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS
+
+  - name: missing-service-owner
+    environment: production
+    tags:
+      Environment: production
+      owner: bob@company.com
+      team: backend
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 8080
+        cidr: 0.0.0.0/0
+        description: App server
+
+  - name: fully-tagged-compliant
+    environment: production
+    tags:
+      Environment: production
+      owner: charlie@company.com
+      team: platform
+      service-owner: platform-eng@company.com
+    rules:
+      - direction: inbound
+        protocol: tcp
+        port: 443
+        cidr: 0.0.0.0/0
+        description: HTTPS compliant with all tags
