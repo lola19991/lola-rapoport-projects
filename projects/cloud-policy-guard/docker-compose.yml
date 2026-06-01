@@ -1,0 +1,23 @@
+services:
+  localstack:
+    image: localstack/localstack:3.8.1
+    container_name: cloud-policy-guard-localstack
+    ports:
+      - "4566:4566"
+    environment:
+      # Enable EC2 service only
+      SERVICES: ec2
+      # Debug logging
+      DEBUG: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - localstack-data:/var/lib/localstack
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  localstack-data:

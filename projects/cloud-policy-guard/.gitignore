@@ -1,11 +1,14 @@
 target/
+.venv/
+__MACOSX/
 .idea/
 .vscode/
 *.iml
 .DS_Store
 .env
+*.env
 *.log
-policy-guard.sarif
+*.sarif
 terraform.tfstate*
 .terraform/
 .terraform.lock.hcl
@@ -13,3 +16,7 @@ terraform.tfstate*
 
 # Local scratch files
 /terraform-plan.json
+/localstack-scan-results.json
+/localstack-scan-results.sarif
+/results.json
+/results.sarif
